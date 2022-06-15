@@ -8,8 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
-from . import pages
-from .course import Course
+from . import pages, course
 from .web_driver import WebDriver
 
 
@@ -87,14 +86,10 @@ class App:
         student_login_box.click()
         time.sleep(5)
 
-    def go_to_course(self, course: Course):
-        self.driver.get(course.value)
-        # time.sleep(5)
-
-    def wander(self, page: pages.SysopLectures):
-        self.driver.get(page.value)
+    def wander(self, page: course.CourseItem):
+        self.driver.get(page.href)
         while True:
-            print(f"Refreshing {page.name}")
+            print(f"Refreshing {' '.join(page.name.split()[:2])}...")
             self.driver.refresh()
             time.sleep(60)
             # TODO: Implement refreshing timeout
