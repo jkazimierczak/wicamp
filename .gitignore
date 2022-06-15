@@ -1,6 +1,9 @@
 # IDE
 .idea/
 
-# Other files
+# Runtime
+__pycache__/
 geckodriver.log
+
+# Config / Other files
 .env
