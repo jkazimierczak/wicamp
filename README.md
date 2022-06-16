@@ -19,6 +19,7 @@ To install just clone this repository and install dependencies. This
 requires you to have poetry installed.
 ```bash
 git clone https://github.com/jkazimierczak/wicamp.git
+cd wicamp
 poetry install
 ```
 
