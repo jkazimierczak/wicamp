@@ -61,7 +61,9 @@ class Course:
         for task in self.tasks:
             if task.index == task_num:
                 for item in task.items:
-                    return item if item.type == item_type else None
+                    if item.type == item_type:
+                        return item
+                    # return item if item.type == item_type else
 
     def parse_content(self, section):
         items = []
