@@ -7,7 +7,7 @@ from typing import List
 
 def load_json_from_file(filename: str):
     try:
-        with open(filename) as f:
+        with open(filename, encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
         sys.exit(1)
