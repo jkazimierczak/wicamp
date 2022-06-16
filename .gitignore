@@ -7,3 +7,4 @@ geckodriver.log
 
 # Config / Other files
 .env
+poetry.lock
