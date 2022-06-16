@@ -6,11 +6,8 @@ authors = ["jkazimierczak <77862767+jkazimierczak@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pyppeteer = "^1.0.2"
-aiohttp = "^3.8.1"
 selenium = "^4.2.0"
 webdriver-manager = "^3.7.0"
-requests = "^2.28.0"
 beautifulsoup4 = "^4.11.1"
 lxml = "^4.9.0"
 python-dotenv = "^0.20.0"
