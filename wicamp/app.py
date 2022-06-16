@@ -2,7 +2,6 @@ import time
 from datetime import datetime, timedelta
 
 import bs4
-import requests
 import selenium.common.exceptions
 import selenium.webdriver
 from selenium.webdriver.common.by import By
@@ -21,7 +20,6 @@ class App:
         self.password = password
         self._driver = driver
         self._login_time: datetime = None
-        self.session = requests.Session()
 
     def debug(self):
         """Empty function. Breakpointing gives access to self."""
