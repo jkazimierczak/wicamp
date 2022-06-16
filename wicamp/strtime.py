@@ -1,6 +1,8 @@
 def to_minutes(s: str):
     parts = s.split()
     if len(parts) == 1:
+        if parts[0].endswith("s"):
+            return 0
         return int(parts[0].strip("min"))
     else:
         return int(parts[0].strip("h")) * 60 + int(parts[1].strip("min"))

@@ -5,7 +5,9 @@ from wicamp.strtime import to_minutes, strtime_diff
 
 class TestSum(unittest.TestCase):
     def test_to_mintues(self):
-        self.assertEqual(to_minutes("0min"), 0)
+        self.assertEqual(to_minutes("0s"), 0)
+        self.assertEqual(to_minutes("21s"), 0)
+        self.assertEqual(to_minutes("37s"), 0)
         self.assertEqual(to_minutes("27min"), 27)
         self.assertEqual(to_minutes("54min"), 54)
         self.assertEqual(to_minutes("1h 0min"), 60)
