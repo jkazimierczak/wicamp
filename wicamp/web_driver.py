@@ -2,6 +2,7 @@ import pickle
 from typing import List
 
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from webdriver_manager.firefox import GeckoDriverManager
 
 
@@ -9,8 +10,14 @@ class WebDriver:
     def __init__(self):
         self.driver = webdriver.Firefox(
             executable_path=GeckoDriverManager().install(),
+            options=self.create_options(),
         )
         self.cookies: List[dict] = self._load_cookies()
+
+    def create_options(self):
+        options = Options()
+        options.headless = True
+        return options
 
     def _load_cookies(self):
         try:
