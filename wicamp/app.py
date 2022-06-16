@@ -1,6 +1,7 @@
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
+import bs4
 import requests
 import selenium.common.exceptions
 import selenium.webdriver
@@ -9,6 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from . import pages, course
+from .strtime import strtime_diff
 from .web_driver import WebDriver
 
 
@@ -86,13 +88,52 @@ class App:
         student_login_box.click()
         time.sleep(5)
 
-    def wander(self, page: course.CourseItem):
-        self.driver.get(page.href)
-        while True:
-            print(f"Refreshing {' '.join(page.name.split()[:2])}...")
+    def get_activity_time(self, query_text):
+        """Get activity time for a matching string.
+        query_text is trimmed to 30 chars."""
+        end_time = int(datetime.now().timestamp())
+        start_time = int((datetime.now() - timedelta(days=30)).timestamp())
+        self.driver.get(pages.WikampPages.sysop_time_spent + f"&from={start_time}&to={end_time}")
+
+        soup = bs4.BeautifulSoup(self.driver.page_source, "lxml")
+        report_tables = soup.select(".trainingreport td")
+        match = next(filter(lambda x: query_text[:30] in x.text, report_tables), None)
+        if not match:
+            print(f'Queried string ("{query_text}") not found.')
+            return
+
+        return report_tables[(report_tables.index(match) + 1)].text.strip()
+
+    def load_lesson_page(self, href):
+        self.driver.get(href)
+        try:
+            yes_button = self.driver.find_element(By.CLASS_NAME, "btn-primary")
+            yes_button.click() if "Tak" in yes_button.text else None
+        except selenium.common.exceptions.NoSuchElementException:
+            return
+
+    def wander(self, page: course.CourseItem, duration: timedelta = None):
+        time_start = datetime.now()
+        time_end = None
+        if duration:
+            time_end = time_start + duration
+        initial_reported_time = self.get_activity_time(page.name)
+        reported_time = None
+
+        self.load_lesson_page(page.href)
+        i = 0
+        while (datetime.now() < time_end) if duration else True:
+            if i % 5 == 0:
+                # print("Checking time diff... ", end="")
+                reported_time = self.get_activity_time(page.name)
+                print(f"diff={strtime_diff(initial_reported_time, reported_time)}min (start: {initial_reported_time} | now: {reported_time})")
+                self.load_lesson_page(page.href)
+            # print(f"Refreshing {' '.join(page.name.split()[:2])}...")
             self.driver.refresh()
             time.sleep(60)
-            # TODO: Implement refreshing timeout
+            i += 1
+        reported_time = self.get_activity_time(page.name)
+        print(f"diff={strtime_diff(initial_reported_time, reported_time)}min (start: {initial_reported_time} | now: {reported_time})")
 
     def close(self):
         """Shutdown and save temporary profile."""
