@@ -1,6 +1,6 @@
 <h1 align="center">WICAMP</h1>
-<p align="center">*"Because sitting at the CAMPfire and staring at it is more 
-enjoyable than staring 30 hours at WICAMP pages."*</p>
+<p align="center"><i>"Because sitting at the CAMPfire and staring at it is more 
+  enjoyable than staring 30 hours at WICAMP pages."</i></p>
 
 This goal of this scripts is to effortlessly reach a minimum of 30 hours on a 
 course 
