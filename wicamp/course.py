@@ -51,6 +51,12 @@ class Course:
         self.tasks = self.parse_tasks(self._content["tasks"])
         return self
 
+    def get_obligatory(self, query_str):
+        """Search for a lecture. query_str can be a word, number or phrase."""
+        for obligatory in self.obligatory:
+            if str(query_str) in obligatory.name:
+                return obligatory
+
     def get_lecture(self, query_str):
         """Search for a lecture. query_str can be a word, number or phrase."""
         for lecture in self.lectures:
