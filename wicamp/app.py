@@ -90,14 +90,14 @@ class App:
 
     def get_activity_time(self, query_text):
         """Get activity time for a matching string.
-        query_text is trimmed to 30 chars."""
+        query_text is trimmed to 80 chars."""
         end_time = int(datetime.now().timestamp())
         start_time = int((datetime.now() - timedelta(days=30)).timestamp())
         self.driver.get(pages.WikampPages.sysop_time_spent + f"&from={start_time}&to={end_time}")
 
         soup = bs4.BeautifulSoup(self.driver.page_source, "lxml")
         report_tables = soup.select(".trainingreport td")
-        match = next(filter(lambda x: query_text[:30] in x.text, report_tables), None)
+        match = next(filter(lambda x: query_text[:80] in x.text, report_tables), None)
         if not match:
             print(f'Queried string ("{query_text}") not found.')
             return
