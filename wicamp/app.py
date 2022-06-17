@@ -20,10 +20,16 @@ class App:
         self.password = password
         self._driver = driver
         self._login_time: datetime = None
+        self.soup: bs4.BeautifulSoup = None
+        self.soup_made_on: datetime = datetime.fromtimestamp(0)
 
     def debug(self):
         """Empty function. Breakpointing gives access to self."""
         pass
+
+    @property
+    def is_soup_expired(self):
+        return True if (datetime.now() - self.soup_made_on).seconds > 60 else False
 
     @property
     def login_time(self) -> int:
@@ -86,15 +92,26 @@ class App:
         student_login_box.click()
         time.sleep(5)
 
-    def get_activity_time(self, query_text):
-        """Get activity time for a matching string.
-        query_text is trimmed to 80 chars."""
+    def soupify_activity_page(self):
         end_time = int(datetime.now().timestamp())
         start_time = int((datetime.now() - timedelta(days=30)).timestamp())
         self.driver.get(pages.WikampPages.sysop_time_spent + f"&from={start_time}&to={end_time}")
 
-        soup = bs4.BeautifulSoup(self.driver.page_source, "lxml")
-        report_tables = soup.select(".trainingreport td")
+        self.soup = bs4.BeautifulSoup(self.driver.page_source, "lxml")
+        self.soup_made_on = datetime.now()
+
+    def get_total_activity_time(self):
+        if self.is_soup_expired:
+            self.soupify_activity_page()
+        match = self.soup.select_one("#sample-elapsed")
+        return match.text.replace("Całkowity czas", "").strip()
+
+    def get_activity_time(self, query_text):
+        """Get activity time for a matching string.
+        query_text is trimmed to 80 chars."""
+        if self.is_soup_expired:
+            self.soupify_activity_page()
+        report_tables = self.soup.select(".trainingreport td")
         match = next(filter(lambda x: query_text[:80] in x.text, report_tables), None)
         if not match:
             print(f'Queried string ("{query_text}") not found.')
