@@ -35,6 +35,8 @@ def main():
         course.get_lecture(14),
         course.get_lecture(15)
     ]
+    items = [item for item in items if item is not None]
+    items = app.create_activity_lookup_table(items)
     random.shuffle(items)
     i = 0
     while i <= len(items):
