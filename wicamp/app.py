@@ -15,6 +15,10 @@ from .strtime import strtime_diff
 from .web_driver import WebDriver
 
 
+class ActivityTimeNotFound(Exception):
+    pass
+
+
 class App:
     def __init__(self, username, password, driver: WebDriver):
         self.is_logged_in = False
@@ -120,8 +124,8 @@ class App:
             self.soupify_activity_page()
         report_tables = self.soup.select(".trainingreport td")
         match = next(filter(lambda x: query_text[:70] in x.text, report_tables), None)
+
         if not match:
-            print(f'Queried string ("{query_text}") not found.')
             return
 
         return report_tables[(report_tables.index(match) + 1)].text.strip()
@@ -145,6 +149,8 @@ class App:
         if duration:
             time_end = time_start + duration
         initial_reported_time = self.get_activity_time(page.name)
+        if not initial_reported_time:
+            raise ActivityTimeNotFound(page.name)
 
         self.console.print(Text.assemble((f"[{datetime.now().strftime('%H:%M')}] ", "dim"),
                                          "Rozpoczynam czytanie ", (page.name, "gold1"), " na ",

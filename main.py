@@ -5,7 +5,7 @@ import sys
 
 from dotenv import load_dotenv
 
-from wicamp.app import App
+from wicamp.app import App, ActivityTimeNotFound
 from wicamp.course import Course, TaskItemType
 from wicamp.web_driver import WebDriver
 
@@ -48,6 +48,12 @@ def main():
         minutes = random.randint(15, 60)
         try:
             app.wander(item, datetime.timedelta(minutes=minutes))
+        except ActivityTimeNotFound as err:
+            link = "[link=https://github.com/jkazimierczak/wicamp/issues/5]issue #5[/link]"
+            app.console.print("[red]Error: Couldn' get activity time for this course.[/red]\n"
+                              f"Please reopen {link} and paste this string with quotes:\n```{err}```",
+                              highlight=False)
+            items.pop(i)
         except KeyboardInterrupt:
             print("Exiting")
             app.close()
