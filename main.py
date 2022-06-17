@@ -10,6 +10,11 @@ from wicamp.web_driver import WebDriver
 
 load_dotenv()
 
+if os.environ["WDM_LOG"] == "false":
+    import logging
+
+    logging.getLogger('WDM').setLevel(logging.NOTSET)
+
 
 def main():
     username = os.environ["WICAMP_USERNAME"]
