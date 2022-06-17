@@ -11,6 +11,7 @@ webdriver-manager = "^3.7.0"
 beautifulsoup4 = "^4.11.1"
 lxml = "^4.9.0"
 python-dotenv = "^0.20.0"
+rich = "^12.4.4"
 
 [tool.poetry.dev-dependencies]
 
