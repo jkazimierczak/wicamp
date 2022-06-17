@@ -142,7 +142,8 @@ class App:
             time_end = time_start + duration
         initial_reported_time = self.get_activity_time(page.name)
 
-        self.console.print(Text.assemble("Rozpoczynam czytanie ", (page.name, "gold1"), " na ",
+        self.console.print(Text.assemble((f"[{datetime.now().strftime('%H:%M')}] ", "dim"),
+                                         "Rozpoczynam czytanie ", (page.name, "gold1"), " na ",
                                          (f"{duration.seconds // 60} minut", "gold1")))
         self.console.print(Text.assemble(f"Obecny czas w tej aktyności: ", (initial_reported_time, "bold")))
         with self.console.status(f"Rozpoczęto czytanie {page.name}", spinner_style="white") as status:
