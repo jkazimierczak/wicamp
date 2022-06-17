@@ -1,6 +1,7 @@
 import time
 from datetime import datetime, timedelta
 
+import difflib
 import bs4
 import selenium.common.exceptions
 import selenium.webdriver
@@ -122,13 +123,13 @@ class App:
         query_text is trimmed to 70 chars."""
         if self.is_soup_expired:
             self.soupify_activity_page()
-        report_tables = self.soup.select(".trainingreport td")
-        match = next(filter(lambda x: query_text[:70] in x.text, report_tables), None)
+        report_cells = self.soup.select(".trainingreport td")
+        # Todo: Remember found index to avoid computation
+        ratios = [difflib.SequenceMatcher(None, cell.text.strip(), query_text).ratio() for cell in report_cells]
+        if (_max := max(ratios)) < 0.8:
+            return None
 
-        if not match:
-            return
-
-        return report_tables[(report_tables.index(match) + 1)].text.strip()
+        return report_cells[ratios.index(_max) + 1].text.strip()
 
     def load_lesson_page(self, href):
         self.driver.get(href)
