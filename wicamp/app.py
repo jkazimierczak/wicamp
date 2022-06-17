@@ -111,11 +111,11 @@ class App:
 
     def get_activity_time(self, query_text):
         """Get activity time for a matching string.
-        query_text is trimmed to 80 chars."""
+        query_text is trimmed to 70 chars."""
         if self.is_soup_expired:
             self.soupify_activity_page()
         report_tables = self.soup.select(".trainingreport td")
-        match = next(filter(lambda x: query_text[:80] in x.text, report_tables), None)
+        match = next(filter(lambda x: query_text[:70] in x.text, report_tables), None)
         if not match:
             print(f'Queried string ("{query_text}") not found.')
             return
