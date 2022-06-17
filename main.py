@@ -41,6 +41,7 @@ def main():
         item = items[i]
         minutes = random.randint(15, 60)
         app.wander(item, datetime.timedelta(minutes=minutes))
+        i += 1
     app.close()
 
 
