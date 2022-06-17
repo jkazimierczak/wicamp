@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 import bs4
 import selenium.common.exceptions
 import selenium.webdriver
+from rich.console import Console
+from rich.text import Text
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -22,6 +24,7 @@ class App:
         self._login_time: datetime = None
         self.soup: bs4.BeautifulSoup = None
         self.soup_made_on: datetime = datetime.fromtimestamp(0)
+        self.console = Console()
 
     def debug(self):
         """Empty function. Breakpointing gives access to self."""
@@ -127,6 +130,11 @@ class App:
         except selenium.common.exceptions.NoSuchElementException:
             return
 
+    def create_status(self, diff):
+        _diff = (f"+{diff}min", "green") if diff != 0 else ""
+        _total = (self.get_total_activity_time(), "bold")
+        return Text.assemble("Udaję, że czytam... ", _diff, " (łączny czas w kursie: ", _total, ")")
+
     def wander(self, page: course.CourseItem, duration: timedelta = None):
         time_start = datetime.now()
         time_end = None
@@ -135,20 +143,26 @@ class App:
         initial_reported_time = self.get_activity_time(page.name)
         reported_time = None
 
-        self.load_lesson_page(page.href)
-        i = 0
-        while (datetime.now() < time_end) if duration else True:
-            if i % 5 == 0:
-                # print("Checking time diff... ", end="")
-                reported_time = self.get_activity_time(page.name)
-                print(f"diff={strtime_diff(initial_reported_time, reported_time)}min (start: {initial_reported_time} | now: {reported_time})")
-                self.load_lesson_page(page.href)
-            # print(f"Refreshing {' '.join(page.name.split()[:2])}...")
-            self.driver.refresh()
-            time.sleep(60)
-            i += 1
-        reported_time = self.get_activity_time(page.name)
-        print(f"diff={strtime_diff(initial_reported_time, reported_time)}min (start: {initial_reported_time} | now: {reported_time})")
+        self.console.print(Text.assemble("Rozpoczynam czytanie ", (page.name, "gold1"), " na ",
+                                         (f"{duration.seconds // 60} minut", "gold1")))
+        self.console.print(Text.assemble(f"Obecny czas w tej aktyności: ", (initial_reported_time, "bold")))
+        with self.console.status(f"Rozpoczęto czytanie {page.name}", spinner_style="white") as status:
+            self.load_lesson_page(page.href)
+            i = 0
+            while (datetime.now() < time_end) if duration else True:
+                if i % 5 == 0:
+                    reported_time = self.get_activity_time(page.name)
+                    status.update(self.create_status(strtime_diff(initial_reported_time, reported_time)))
+                    self.load_lesson_page(page.href)
+                self.driver.refresh()
+                time.sleep(60)
+                i += 1
+            reported_time = self.get_activity_time(page.name)
+            self.console.print(Text.assemble(
+                "Skończono udawanie. Czas w tej aktywności: ",
+                (f"{self.get_activity_time(page.name)}, ", "bold"),
+                "łączny czas w kursie: ", (self.get_total_activity_time(), "bold"))
+            )
 
     def close(self):
         """Shutdown and save temporary profile."""

@@ -40,7 +40,6 @@ def main():
 
         item = items[i]
         minutes = random.randint(15, 60)
-        print(f"Zabieram sie za {item.name} na {minutes} minut.")
         app.wander(item, datetime.timedelta(minutes=minutes))
     app.close()
 
