@@ -2,6 +2,8 @@ import time
 from datetime import datetime, timedelta
 
 import difflib
+from typing import List, Union
+
 import bs4
 import selenium.common.exceptions
 import selenium.webdriver
@@ -12,6 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from . import pages, course
+from .course import CourseTaskItem, CourseItem
 from .strtime import strtime_diff
 from .web_driver import WebDriver
 
@@ -30,6 +33,7 @@ class App:
         self.soup: bs4.BeautifulSoup = None
         self.soup_made_on: datetime = datetime.fromtimestamp(0)
         self.console = Console()
+        self.activity_time_index_map = {}
 
     def debug(self):
         """Empty function. Breakpointing gives access to self."""
@@ -112,6 +116,20 @@ class App:
         self.soup = bs4.BeautifulSoup(self.driver.page_source, "lxml")
         self.soup_made_on = datetime.now()
 
+    def create_activity_lookup_table(self, activities: List[Union[CourseItem, CourseTaskItem]]):
+        """Create lookup table to speed up reading activity times."""
+        if self.is_soup_expired:
+            self.soupify_activity_page()
+        for activity in activities:
+            report_cells = self.soup.select(".trainingreport td")
+            ratios = [difflib.SequenceMatcher(None, cell.text.strip(), activity.name).ratio() for cell in report_cells]
+            if (_max := max(ratios)) < 0.8:
+                activities.remove(activity)
+                continue
+            else:
+                self.activity_time_index_map.update({activity.name: ratios.index(_max) + 1})
+        return activities
+
     def get_total_activity_time(self):
         if self.is_soup_expired:
             self.soupify_activity_page()
@@ -123,13 +141,9 @@ class App:
         query_text is trimmed to 70 chars."""
         if self.is_soup_expired:
             self.soupify_activity_page()
-        report_cells = self.soup.select(".trainingreport td")
-        # Todo: Remember found index to avoid computation
-        ratios = [difflib.SequenceMatcher(None, cell.text.strip(), query_text).ratio() for cell in report_cells]
-        if (_max := max(ratios)) < 0.8:
-            return None
 
-        return report_cells[ratios.index(_max) + 1].text.strip()
+        report_cells = self.soup.select(".trainingreport td")
+        return report_cells[self.activity_time_index_map.get(query_text, None)].text.strip()
 
     def load_lesson_page(self, href):
         self.driver.get(href)
