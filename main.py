@@ -1,6 +1,7 @@
 import datetime
 import os
 import random
+import sys
 
 from dotenv import load_dotenv
 
@@ -45,7 +46,12 @@ def main():
 
         item = items[i]
         minutes = random.randint(15, 60)
-        app.wander(item, datetime.timedelta(minutes=minutes))
+        try:
+            app.wander(item, datetime.timedelta(minutes=minutes))
+        except KeyboardInterrupt:
+            print("Exiting")
+            app.close()
+            sys.exit(0)
         i += 1
     app.close()
 
