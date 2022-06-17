@@ -83,6 +83,8 @@ class App:
         self._login_time = datetime.now()
 
     def ftims_login(self):
+        s = self.console.status("Logowanie...", spinner_style="white")
+        s.start()
         if not self.is_logged_in:
             self.cas_login()
 
@@ -94,6 +96,8 @@ class App:
         student_login_box = self.driver.find_element(by=By.ID, value='login')
         student_login_box.click()
         time.sleep(5)
+        self.console.print("Zalogowano!", style="bold green")
+        s.stop()
 
     def soupify_activity_page(self):
         end_time = int(datetime.now().timestamp())
