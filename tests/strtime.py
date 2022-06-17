@@ -1,6 +1,6 @@
 import unittest
 
-from wicamp.strtime import to_minutes, strtime_diff
+from wicamp.stringtools import to_minutes, strtime_diff
 
 
 class TestSum(unittest.TestCase):

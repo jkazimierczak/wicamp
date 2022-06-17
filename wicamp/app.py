@@ -15,7 +15,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from . import pages, course
 from .course import CourseTaskItem, CourseItem
-from .strtime import strtime_diff
+from .stringtools import strtime_diff, strdiff
 from .web_driver import WebDriver
 
 
@@ -122,7 +122,7 @@ class App:
             self.soupify_activity_page()
         for activity in activities:
             report_cells = self.soup.select(".trainingreport td")
-            ratios = [difflib.SequenceMatcher(None, cell.text.strip(), activity.name).ratio() for cell in report_cells]
+            ratios = [strdiff(cell.text.strip(), activity.name) for cell in report_cells]
             if (_max := max(ratios)) < 0.8:
                 activities.remove(activity)
                 continue
