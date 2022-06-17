@@ -141,7 +141,6 @@ class App:
         if duration:
             time_end = time_start + duration
         initial_reported_time = self.get_activity_time(page.name)
-        reported_time = None
 
         self.console.print(Text.assemble("Rozpoczynam czytanie ", (page.name, "gold1"), " na ",
                                          (f"{duration.seconds // 60} minut", "gold1")))
@@ -151,13 +150,11 @@ class App:
             i = 0
             while (datetime.now() < time_end) if duration else True:
                 if i % 5 == 0:
-                    reported_time = self.get_activity_time(page.name)
-                    status.update(self.create_status(strtime_diff(initial_reported_time, reported_time)))
+                    status.update(self.create_status(strtime_diff(initial_reported_time, self.get_activity_time(page.name))))
                     self.load_lesson_page(page.href)
                 self.driver.refresh()
                 time.sleep(60)
                 i += 1
-            reported_time = self.get_activity_time(page.name)
             self.console.print(Text.assemble(
                 "Skończono udawanie. Czas w tej aktywności: ",
                 (f"{self.get_activity_time(page.name)}, ", "bold"),
