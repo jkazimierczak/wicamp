@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wicamp"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["jkazimierczak <77862767+jkazimierczak@users.noreply.github.com>"]
 
