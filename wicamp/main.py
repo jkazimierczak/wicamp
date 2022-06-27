@@ -1,7 +1,9 @@
 import datetime
+import itertools
 import os
 import random
 import sys
+from typing import List, Union
 
 from dotenv import load_dotenv
 
@@ -17,36 +19,37 @@ if os.environ["WDM_LOG"] == "false":
     logging.getLogger('WDM').setLevel(logging.NOTSET)
 
 
-def main():
+def main(
+        lectures: List[Union[str, int]],
+        lessons,
+        tasks,
+        question_forms,
+        answer_forms
+):
     username = os.environ["WICAMP_USERNAME"]
     password = os.environ["WICAMP_PASSWORD"]
 
     course = Course().populate()
     driver = WebDriver()
     app = App(username, password, driver)
-    app.ftims_login()
-    items = [
-        course.get_obligatory("Regulamin labo"),
-        course.get_obligatory("Regulamin przed"),
-        course.get_obligatory("Harmonogram"),
-        course.get_task(4),
-        course.get_task(4, TaskItemType.ANSWER),
-        course.get_task(4, TaskItemType.QUESTION),
-        course.get_lecture(14),
-        course.get_lecture(15)
-    ]
-    items = [item for item in items if item is not None]
-    items = app.create_activity_lookup_table(items)
-    random.shuffle(items)
-    i = 0
-    while i <= len(items):
-        if i == len(items):
-            print("Mieszam w kotle, ustalam nowa kolejnosc")
-            i = 0
-            random.shuffle(items)
-            continue
 
-        item = items[i]
+    items = []
+    for lecture in lectures:
+        items.append(course.get_lecture(lecture))
+    for lesson in lessons:
+        items.append(course.get_task(lesson, TaskItemType.TASK_LESSON))
+    for task in tasks:
+        items.append(course.get_task(task, TaskItemType.TASK_CONTENT))
+    for question_form in question_forms:
+        items.append(course.get_task(question_form, TaskItemType.QUESTION_FORM))
+    for answer_form in answer_forms:
+        items.append(course.get_task(answer_form, TaskItemType.ANSWER_FORM))
+    items = [item for item in items if item is not None]
+
+    app.ftims_login()
+    items = app.create_activity_lookup_table(items)
+    # random.shuffle(items)
+    for item in itertools.cycle(items):
         minutes = random.randint(15, 60)
         try:
             app.wander(item, datetime.timedelta(minutes=minutes))
@@ -55,12 +58,11 @@ def main():
             app.console.print("[red]Error: Couldn' get activity time for this course.[/red]\n"
                               f"Please reopen {link} and paste this string with quotes:\n```{err}```",
                               highlight=False)
-            items.pop(i)
+            items.remove(item)
         except KeyboardInterrupt:
             print("Exiting")
             app.close()
             sys.exit(0)
-        i += 1
     app.close()
 
 
