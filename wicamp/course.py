@@ -14,10 +14,10 @@ def load_json_from_file(filename: str):
 
 
 class TaskItemType(Enum):
-    LESSON = auto()
-    CONTENT = auto()
-    QUESTION = auto()
-    ANSWER = auto()
+    TASK_LESSON = auto()
+    TASK_CONTENT = auto()
+    QUESTION_FORM = auto()
+    ANSWER_FORM = auto()
 
 
 @dataclass
@@ -63,7 +63,7 @@ class Course:
             if str(query_str) in lecture.name:
                 return lecture
 
-    def get_task(self, task_num, item_type: TaskItemType = TaskItemType.LESSON):
+    def get_task(self, task_num, item_type: TaskItemType = TaskItemType.TASK_LESSON):
         for task in self.tasks:
             if task.index == task_num:
                 for item in task.items:

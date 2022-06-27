@@ -74,39 +74,39 @@
   "tasks": {
     "4": [
       {
-        "type": "lesson",
+        "type": "task_lesson",
         "name": "Przygotowanie do zadania 4, wykorzystanie podstawowych narzędzi",
         "href": "https://ftims.edu.p.lodz.pl/mod/lesson/view.php?id=102021"
       },
       {
-        "type": "content",
+        "type": "task_content",
         "name": "Treść zadania 4",
         "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=102028"
       },
       {
-        "type": "question",
+        "type": "question_form",
         "name": "Pytania z zakresu odpowiedzi zadania 4",
         "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=106279"
       },
       {
-        "type": "answer",
+        "type": "answer_form",
         "name": "Odpowiedź z zadania 4",
         "href": "https://ftims.edu.p.lodz.pl/mod/assign/view.php?id=102031"
       }
     ],
     "5": [
       {
-        "type": "lesson",
+        "type": "task_lesson",
         "name": "Problem producenta i konsumenta",
         "href": "https://ftims.edu.p.lodz.pl/mod/lesson/view.php?id=102034"
       },
       {
-        "type": "question",
+        "type": "question_form",
         "name": "Zakres odpowiedzi z zadania 5",
         "href": "Problem producenta i konsumenta"
       },
       {
-        "type": "answer",
+        "type": "answer_form",
         "name": "Odpowiedź i sprawozdanie z zadania 5 oraz miejsce do wgrywania archiwów ZIP, podany termin oddania dotyczy wysłania do oceny archiwum ZIP",
         "href": "https://ftims.edu.p.lodz.pl/mod/assign/view.php?id=102039"
       }
