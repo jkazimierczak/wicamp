@@ -65,7 +65,7 @@ class Course:
 
     def get_task(self, task_num, item_type: TaskItemType = TaskItemType.TASK_LESSON):
         for task in self.tasks:
-            if task.index == task_num:
+            if str(task.index) == task_num:
                 for item in task.items:
                     if item.type == item_type:
                         return item
