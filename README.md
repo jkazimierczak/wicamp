@@ -35,6 +35,8 @@ accordingly.
 After configuring the `.env` file run:
 ```bash
 poetry run python main.py
-```
 
-And that's it! If you want you can customize visited pages in `main.py`.
+# Run for specific lectures
+poetry run python -m wicamp run --lectures 11,12,13,14,15
+```
+> Type `poetry run python -m wikamp run --help` to see all available activities.
