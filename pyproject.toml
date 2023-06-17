@@ -6,7 +6,7 @@ authors = ["jkazimierczak <77862767+jkazimierczak@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-selenium = "^4.2.0"
+selenium = "4.2.0"
 webdriver-manager = "^3.7.0"
 beautifulsoup4 = "^4.11.1"
 lxml = "^4.9.0"

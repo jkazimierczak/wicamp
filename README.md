@@ -26,17 +26,20 @@ poetry install
 ## Running
 Before running:
 * install Firefox,
-* edit rename `.evn.tempalte` to `.env` and update the info 
-accordingly.
+* rename `.evn.tempalte` to `.env` and update the info accordingly.
+> If you're using it in different course edition, you will need to edit `course_links.json`.
 
 > GitHub token is necessary to download a correct WebDriver (gecko). To 
-> create a personal token follow [this document](https://help.github.com/articles/creating-an-access-token-for-command-line-use).
+> create a personal token follow [this document](https://help.github.com/articles/creating-an-access-token-for-command-line-use). 
+> The token doesn't have to have any permissions. Both fine-grained and classic
+> tokens will work.
 
-After configuring the `.env` file run:
+After editing the `.env` you can begin to use the program.
 ```bash
-poetry run python main.py
+# Generate a link to statistics from last 30 days
+poetry run python -m wicamp mystats
 
 # Run for specific lectures
 poetry run python -m wicamp run --lectures 11,12,13,14,15
 ```
-> Type `poetry run python -m wikamp run --help` to see all available activities.
+> Type `poetry run python -m wicamp run --help` to see all available activities.
