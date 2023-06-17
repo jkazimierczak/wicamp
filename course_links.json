@@ -2,73 +2,69 @@
   "obligatory": [
     {
       "name": "Harmonogram aktywności zadań laboratoryjnych",
-      "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=101968"
+      "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=113395"
     },
     {
       "name": "Regulamin przedmiotu",
-      "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=101969"
+      "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=113397"
     },
     {
       "name": "Regulamin laboratorium",
-      "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=101970"
+      "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=113398"
     }
   ],
   "lectures": [
     {
       "name": "Wykład 2: Zasada działania systemu operacyjnego",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101979"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113407"
     },
     {
       "name": "Wykład 3 i 4: Konfiguracja przestrzeni składowania danych systemu operacyjnego",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101980"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113408"
     },
     {
       "name": "Wykład 5: Logiczna warstwa systemu plików",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101981"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113409"
     },
     {
       "name": "Wykład 6: Fizyczna warstwa systemu plików",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101982"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113410"
     },
     {
       "name": "Wykład 7: Mechanizmy ochrony w systemie operacyjnym",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101983"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113411"
     },
     {
       "name": "Wykład 8: Kontrola dostępu do plików i katalogów",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101984"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113412"
     },
     {
       "name": "Wykład 9: Urządzenia wejścia-wyjścia, obsługa przerwań zewnętrznych w systemie operacyjnym",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101990"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113413"
     },
     {
       "name": "Wykład 10: Zarządzanie pamięcią ulotną w systemie operacyjnym",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101988"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113415"
     },
     {
       "name": "Wykład 11: Pamięć wirtualna w systemie operacyjnym",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101989"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113416"
     },
     {
       "name": "Wykład 12: Zadania, procesy, wątki i zasoby w systemie operacyjnym",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101986"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113417"
     },
     {
       "name": "Wykład 13: Przydział jednostek przetwarzających w systemie operacyjnym",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101987"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113418"
     },
     {
       "name": "Wykład 14: Współbieżność i synchronizacja procesów, systemowe mechanizmy synchronizacji",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101991"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113419"
     },
     {
       "name": "Wykład 15: Problem zakleszczenia i sposoby przeciwdziałania",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101992"
-    },
-    {
-      "name": "Podsumowanie",
-      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=101993"
+      "href": "https://ftims.edu.p.lodz.pl/mod/resource/view.php?id=113420"
     }
   ],
   "tasks": {
@@ -76,39 +72,39 @@
       {
         "type": "task_lesson",
         "name": "Przygotowanie do zadania 4, wykorzystanie podstawowych narzędzi",
-        "href": "https://ftims.edu.p.lodz.pl/mod/lesson/view.php?id=102021"
+        "href": "https://ftims.edu.p.lodz.pl/mod/lesson/view.php?id=113452"
       },
       {
         "type": "task_content",
         "name": "Treść zadania 4",
-        "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=102028"
+        "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=116463"
       },
       {
         "type": "question_form",
         "name": "Pytania z zakresu odpowiedzi zadania 4",
-        "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=106279"
+        "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=113465"
       },
       {
         "type": "answer_form",
         "name": "Odpowiedź z zadania 4",
-        "href": "https://ftims.edu.p.lodz.pl/mod/assign/view.php?id=102031"
+        "href": "https://ftims.edu.p.lodz.pl/mod/assign/view.php?id=113469"
       }
     ],
     "5": [
       {
         "type": "task_lesson",
         "name": "Problem producenta i konsumenta",
-        "href": "https://ftims.edu.p.lodz.pl/mod/lesson/view.php?id=102034"
+        "href": "https://ftims.edu.p.lodz.pl/mod/lesson/view.php?id=113472"
       },
       {
         "type": "question_form",
         "name": "Zakres odpowiedzi z zadania 5",
-        "href": "Problem producenta i konsumenta"
+        "href": "https://ftims.edu.p.lodz.pl/mod/page/view.php?id=113477"
       },
       {
         "type": "answer_form",
         "name": "Odpowiedź i sprawozdanie z zadania 5 oraz miejsce do wgrywania archiwów ZIP, podany termin oddania dotyczy wysłania do oceny archiwum ZIP",
-        "href": "https://ftims.edu.p.lodz.pl/mod/assign/view.php?id=102039"
+        "href": "https://ftims.edu.p.lodz.pl/mod/assign/view.php?id=113478"
       }
     ]
   }
